@@ -4,7 +4,7 @@ A web-based IoT dashboard for controlling smart home devices (lights, appliances
 
 ![Project Status](https://img.shields.io/badge/status-active-success)
 
-##link:-(https://github.com/Ankit1576734/smart_home_automation)
+ ## link:-([https://github.com/Ankit1576734/smart_home_automatio](https://ankit1576734.github.io/smart_home_automation/))
 
 ## ✨ Features
 
