@@ -1,14 +1,14 @@
 #include <WiFi.h>
 #include <FirebaseESP32.h>
 
-#define WIFI_SSID "YOUR_WIFI_NAME"
-#define WIFI_PASSWORD "YOUR_WIFI_PASSWORD"
+#define WIFI_SSID "OnePlus Nord CE4"
+#define WIFI_PASSWORD "Satish123"
 
 #define API_KEY "AIzaSyCeaYRq2zOyb-YtJGJ3So4xwyoot21X6oY"
 #define DATABASE_URL "https://home-automation-ded78-default-rtdb.europe-west1.firebasedatabase.app/"
 
-#define USER_EMAIL "email@example.com"
-#define USER_PASSWORD "password123"
+#define USER_EMAIL "adc@gmail.com"
+#define USER_PASSWORD "123455"
 
 FirebaseData fbdo;
 FirebaseAuth auth;
@@ -19,7 +19,7 @@ const int relayPins[8] = {23, 22, 21, 19, 18, 5, 4, 2};
 void setup() {
   Serial.begin(115200);
 
-  for(int i=0; i<8; i++) {
+  for(int i = 0; i < 8; i++) {
     pinMode(relayPins[i], OUTPUT);
     digitalWrite(relayPins[i], LOW);
   }
@@ -28,7 +28,6 @@ void setup() {
   while (WiFi.status() != WL_CONNECTED) {
     delay(300);
   }
-  Serial.println(WiFi.localIP());
 
   config.api_key = API_KEY;
   config.database_url = DATABASE_URL;
@@ -40,18 +39,13 @@ void setup() {
 }
 
 void loop() {
-  if (Firebase.ready() && (WiFi.status() == WL_CONNECTED)) {
+  if (Firebase.ready() && WiFi.status() == WL_CONNECTED) {
     for (int i = 1; i <= 8; i++) {
       String path = "/relay" + String(i);
+
       if (Firebase.getBool(fbdo, path)) {
-        bool isOn = fbdo.boolData();
-        int pinIndex = i - 1;
-        
-        if (isOn) {
-           digitalWrite(relayPins[pinIndex], HIGH);
-        } else {
-           digitalWrite(relayPins[pinIndex], LOW);
-        }
+        bool state = fbdo.boolData();
+        digitalWrite(relayPins[i - 1], state ? HIGH : LOW);
       }
     }
   }
